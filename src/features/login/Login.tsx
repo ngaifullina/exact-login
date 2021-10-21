@@ -24,7 +24,7 @@ export function Login() {
   }
 
   function handleClick() {
-    history.push("/account");
+    history.push("/profile");
   }
 
   return (

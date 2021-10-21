@@ -1,6 +1,6 @@
 import React from "react";
 import { Login } from "./features/login/Login";
-import { Account } from "./features/account/Account";
+import { Profile } from "./features/profile/Profile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact component={Account} path="/account" />
+          <Route exact component={Profile} path="/profile" />
         </Switch>
       </Router>
       ,

@@ -1,8 +1,8 @@
 import React from "react";
 import { userCredentials } from "../userSlice";
-import styles from "./Account.module.css";
+import styles from "./Profile.module.css";
 
-export function Account() {
+export function Profile() {
   return (
     <div className={styles.card}>
       <h1>{userCredentials.login}</h1>
