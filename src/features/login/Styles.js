@@ -35,20 +35,8 @@ const btnPrimary = btn("#4f93ce", "#285f8f");
 
 export default styled.div`
   font-family: sans-serif;
-
-  h1 {
-    text-align: center;
-    color: #222;
-  }
-
   & > div {
     text-align: center;
-  }
-
-  a {
-    display: block;
-    text-align: center;
-    color: #222;
   }
 
   form {
@@ -100,7 +88,7 @@ export default styled.div`
       margin-top: 15px;
     }
     button {
-      margin: 0 10px;
+      margin: 0 21px;
       &[type="submit"] {
         ${btnPrimary};
       }

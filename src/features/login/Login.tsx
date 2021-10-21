@@ -1,76 +1,59 @@
 import React from "react";
-import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import Styles from "./Styles";
-import { Form, Field } from "react-final-form";
-import { fetchUser } from "../user/userApi";
-import { clearState, status } from "../user/userSlice";
 import { useHistory } from "react-router-dom";
-import toast from "react-hot-toast";
-
-export function MyForm() {
-  const dispatch = useAppDispatch();
-  const history = useHistory();
-  const { isSuccess, isError } = useAppSelector(status);
-
-  useEffect(
-    () => () => {
-      dispatch(clearState());
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    if (isError) {
-      toast.error("Please, check your login or password");
-      dispatch(clearState());
-    }
-
-    if (isSuccess) {
-      dispatch(clearState());
-      history.push("/account");
-    }
-  });
-
-  const onSubmit = () => dispatch(fetchUser());
-  const required = (value: string) => (value ? undefined : "Required");
-  return (
-    <Styles>
-      <div>
-        <Form
-          onSubmit={onSubmit}
-          render={({ handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <div>
-                <Field
-                  name="login"
-                  component="input"
-                  placeholder="login"
-                  validate={required}
-                />
-              </div>
-              <div>
-                <Field
-                  name="password"
-                  placeholder="password"
-                  component="input"
-                  validate={required}
-                />
-              </div>
-
-              <button type="submit">Log in</button>
-            </form>
-          )}
-        />
-      </div>
-    </Styles>
-  );
-}
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import {
+  loginChange,
+  passwordChange,
+  selectCredentials,
+  isDisabled,
+} from "../userSlice";
+import Styles from "./Styles";
 
 export function Login() {
+  const dispatch = useAppDispatch();
+  const { login, password } = useAppSelector(selectCredentials);
+  const disabled = useAppSelector(isDisabled);
+  let history = useHistory();
+  // todo type
+  function handleLoginChange(event: any) {
+    dispatch(loginChange(event.target.value));
+  }
+
+  function handlePasswordChange(event: any) {
+    dispatch(passwordChange(event.target.value));
+  }
+
+  function handleClick() {
+    history.push("/account");
+  }
+
   return (
-    <div>
-      <MyForm />
-    </div>
+    <Styles>
+      <form>
+        <div>
+          <input
+            value={login}
+            onChange={handleLoginChange}
+            type="login"
+            className="field-long"
+            placeholder="Login"
+            required
+          />
+        </div>
+        <div>
+          <input
+            value={password}
+            onChange={handlePasswordChange}
+            type="password"
+            className="field-long"
+            placeholder="password"
+            required
+          />
+        </div>
+        <button type="submit" disabled={disabled} onClick={handleClick}>
+          Log in
+        </button>
+      </form>
+    </Styles>
   );
 }
