@@ -1,6 +1,6 @@
 {
   "name": "login",
-  "homepage": "http://gitname.github.io/login",
+  "homepage": "http://gitname.github.io/exact-login",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
