@@ -1,4 +1,3 @@
-import React from "react";
 import { Login } from "./features/login/Login";
 import { Profile } from "./features/profile/Profile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -12,7 +11,6 @@ function App() {
           <Route exact component={Profile} path="/profile" />
         </Switch>
       </Router>
-      ,
     </div>
   );
 }

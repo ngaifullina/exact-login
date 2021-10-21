@@ -1,25 +1,27 @@
-import React from "react";
+import { ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   loginChange,
   passwordChange,
-  selectCredentials,
+  selectLogin,
+  selectPassword,
   isDisabled,
 } from "../userSlice";
 import Styles from "./Styles";
 
 export function Login() {
   const dispatch = useAppDispatch();
-  const { login, password } = useAppSelector(selectCredentials);
+  const login = useAppSelector(selectLogin);
+  const password = useAppSelector(selectPassword);
   const disabled = useAppSelector(isDisabled);
   let history = useHistory();
-  // todo type
-  function handleLoginChange(event: any) {
+
+  function handleLoginChange(event: ChangeEvent<HTMLInputElement>) {
     dispatch(loginChange(event.target.value));
   }
 
-  function handlePasswordChange(event: any) {
+  function handlePasswordChange(event: ChangeEvent<HTMLInputElement>) {
     dispatch(passwordChange(event.target.value));
   }
 
@@ -35,7 +37,6 @@ export function Login() {
             value={login}
             onChange={handleLoginChange}
             type="login"
-            className="field-long"
             placeholder="Login"
             required
           />
@@ -45,13 +46,12 @@ export function Login() {
             value={password}
             onChange={handlePasswordChange}
             type="password"
-            className="field-long"
             placeholder="password"
             required
           />
         </div>
         <button type="submit" disabled={disabled} onClick={handleClick}>
-          Log in
+          Войти
         </button>
       </form>
     </Styles>

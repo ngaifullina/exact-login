@@ -6,21 +6,15 @@ export const userCredentials = {
   password: "123456",
 };
 
-export type Credentials = {
+export type State = {
   login: string;
   password: string;
-};
-
-export type State = {
-  inputCredentials: Credentials;
   disabledButton: boolean;
 };
 
 const initialState: State = {
-  inputCredentials: {
-    login: "",
-    password: "",
-  },
+  login: "",
+  password: "",
   disabledButton: true,
 };
 
@@ -35,33 +29,27 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loginChange: (state, action: PayloadAction<string>) => {
-      state.inputCredentials.login = action.payload;
-      if (
-        checkCredentials(
-          state.inputCredentials.login,
-          state.inputCredentials.password
-        )
-      ) {
+      state.login = action.payload;
+      if (checkCredentials(state.login, state.password)) {
         state.disabledButton = false;
+      } else {
+        state.disabledButton = true;
       }
     },
 
     passwordChange: (state, action: PayloadAction<string>) => {
-      state.inputCredentials.password = action.payload;
-      if (
-        checkCredentials(
-          state.inputCredentials.login,
-          state.inputCredentials.password
-        )
-      ) {
+      state.password = action.payload;
+      if (checkCredentials(state.login, state.password)) {
         state.disabledButton = false;
+      } else {
+        state.disabledButton = true;
       }
     },
   },
 });
 
-export const selectCredentials = (state: RootState) =>
-  state.user.inputCredentials;
+export const selectPassword = (state: RootState) => state.user.password;
+export const selectLogin = (state: RootState) => state.user.login;
 export const isDisabled = (state: RootState) => state.user.disabledButton;
 export const { loginChange, passwordChange } = userSlice.actions;
 
